@@ -33,7 +33,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.DOCKER_GITHUB_TOKEN }}
       
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
@@ -42,8 +42,8 @@ jobs:
           context: ./
           # Note: tags has to be all lower-case
           tags: |
-            kayretaga/nodejs-image-demo:latest 
-            ghcr.io/kayretaga/nodejs-image-demo:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/nodejs-image-demo:latest 
+            ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/nodejs-image-demo:latest
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/master' }}
 
